@@ -22,9 +22,14 @@ exports.getItems = async (req, res, next) => {
 
 exports.postRecommendations = async (req, res, next) => {
     try {
-        var result = require('child_process').execSync('python3 '+__dirname+'\\engine.py').toString();
-        console.log(result);
-
+        var result = require('child_process').execSync(`python3 ${__dirname}/engine.py`).toString();
+        recommended_movies = result.split(",")
+        console.log(recommended_movies)
+        const movies = await Movie.find({ title: { $in: recommended_movies } });
+        res.status(200).json({
+            success: true,
+            movies: movies
+        });
     } catch (error) {
         console.log(`Error on generating recommendations ${error.message}`.red);
         res.status(500).json({
