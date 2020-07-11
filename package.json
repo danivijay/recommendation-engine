@@ -1,0 +1,28 @@
+{
+  "name": "movie-recommendation-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://danivijay:Ksb4DRsKwpLt7jV@github.com/danivijay/movie-recommendation-system.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danivijay/movie-recommendation-system/issues"
+  },
+  "homepage": "https://github.com/danivijay/movie-recommendation-system#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "neat-csv": "^5.2.0",
+    "nodemon": "^2.0.4"
+  }
+}
