@@ -1,28 +1,30 @@
 const neatCsv = require('neat-csv');
+//const mongoose = require('mongoose');
+const { spawn } = require('child_process');
+const { Movie } = require('../models/movie');
 
 exports.getItems = async (req, res, next) => {
-    console.log('here')
     try {
-        const filePath = path.join(__dirname, 'recommendation_engine/movie_dataset.csv');
-        fs.readFile(filePath, (error, data) => {
-        if (error) {
-            return console.log('error reading file');
-        }
-        neatCsv(data)
-            .then((parsedData) => console.log(parsedData));
+        const page = req.query.pageNum || 0;
+        const movies = await Movie.find().skip(page * 10).limit(10).sort('title');
+        res.status(200).json({
+            success: true,
+            movies: movies
         });
     } catch (error) {
         console.log(`Error on getting items: ${error.message}`.red);
         res.status(500).json({
-        success: false,
-        errors: ["Unable to get items", error.message],
+            success: false,
+            errors: ["Unable to get items", error.message],
         });
     }
 };
 
 exports.postRecommendations = async (req, res, next) => {
     try {
-        
+        var result = require('child_process').execSync('python3 '+__dirname+'\\engine.py').toString();
+        console.log(result);
+
     } catch (error) {
         console.log(`Error on generating recommendations ${error.message}`.red);
         res.status(500).json({
