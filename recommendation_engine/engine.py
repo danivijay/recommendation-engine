@@ -2,6 +2,13 @@ import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
+from pymongo import MongoClient
+
+client = MongoClient('mongodb://localhost/')
+db=client.recommendation_system
+serverStatusResult=db.command("serverStatus")
+
+print(db.movies.find())
 
 def get_title_from_index(index):
 	return df[df.index == index]["title"].values[0]
@@ -9,8 +16,10 @@ def get_title_from_index(index):
 def get_index_from_title(title):
 	return df[df.title == title]["index"].values[0]
 
-df = pd.read_csv("movie_dataset.csv")
+#df = pd.read_csv("https://raw.githubusercontent.com/danivijay/movie-recommendation-system/master/recommendation_engine/movie_dataset.csv")
 # print(df.columns)
+df = pd.DataFrame(list(db.movies.find()))
+
 features = ['keywords', 'cast', 'genres', 'director']
 
 def combine_features(row):
