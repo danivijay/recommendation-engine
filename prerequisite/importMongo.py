@@ -9,4 +9,4 @@ def csv_to_json(filename, header=0):
     data = pd.read_csv(filename, header=header)
     return data.to_dict('records')
 
-collection.insert_many(csv_to_json('https://raw.githubusercontent.com/danivijay/movie-recommendation-system/master/recommendation_engine/movie_dataset.csv'))
+collection.insert_many(csv_to_json('https://raw.githubusercontent.com/danivijay/movie-recommendation-system/master/controllers/movie_dataset.csv'))
