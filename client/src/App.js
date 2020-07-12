@@ -89,10 +89,10 @@ const App = () => {
       </header>
       <div className="container">
         {favorites.length > 0 && (
-          <div style={{fontWeight: 'bold'}}>
+          <div>
             Favorites: {(favorites.map((favorite, i) => (
               <Fragment>
-                <span>{favorite} <button onClick={() => handleRemoveFavorite(favorite)}>x</button> {favorites.length !== i}</span>
+                <span style={{fontWeight: 'bold'}}>{favorite} <button onClick={() => handleRemoveFavorite(favorite)}>x</button> {favorites.length !== i}</span>
               </Fragment>
             )))}
           </div>
@@ -100,7 +100,7 @@ const App = () => {
         <div>
           {favorites.length > 0 ? (
             <Fragment>
-              <h2>{recommendedLoading && 'Loading '}Recommended</h2>
+              <h2 className={recommendedLoading ? 'loading' : 'loaded'}>{recommendedLoading && 'Loading '}Recommended</h2>
               {!recommendedLoading && recommended.map(item => (
                 <MovieCard item={item} onFavorite={handleFavorite} isFavorite={favorites.includes(item.title)}/>
                 ))}
@@ -110,7 +110,7 @@ const App = () => {
           )}
         </div>
         <div>
-          <h2>{itemsLoading && 'Loading '} Movies</h2>
+          <h2 className={recommendedLoading ? 'loading' : 'loaded'}>{itemsLoading && 'Loading '}Movies</h2>
           {items.map(item => (
             <MovieCard item={item} onFavorite={handleFavorite} isFavorite={favorites.includes(item.title)}/>
           ))}

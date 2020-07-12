@@ -54,3 +54,11 @@
     cursor: pointer;
     font-weight: bold;
 }
+
+.loading {
+    color: #cc0c0c
+}
+
+.loaded {
+    color: green
+}
