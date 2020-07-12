@@ -64,7 +64,7 @@ for movie in sorted_similar_movies:
     if title not in movie_user_likes:
         result.append(title)
         i = i + 1
-    if i > 10:
+    if i > 4:
         break
 
 print("|".join(result))

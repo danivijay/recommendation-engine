@@ -21,7 +21,7 @@
 
 .favorite {
     background-color: #40c757;
-    border: 5px solid black;
+    border: 3px solid black;
     color: white;
     padding: 10px;
     text-align: center;
@@ -29,11 +29,12 @@
     font-size: 16px;
     cursor: pointer;
     font-weight: bold;
+    border-radius: 5px;
 }
 
 .unfavorite {
     background-color: #c74040;
-    border: 5px solid black;
+    border: 3px solid black;
     color: white;
     padding: 10px;
     text-align: center;
@@ -41,11 +42,12 @@
     font-size: 16px;
     cursor: pointer;
     font-weight: bold;
+    border-radius: 5px;
 }
 
 .load-more {
     background-color: #4089c7;;
-    border: 5px solid black;
+    border: 3px solid black;
     color: white;
     padding: 10px;
     text-align: center;
@@ -53,6 +55,7 @@
     font-size: 16px;
     cursor: pointer;
     font-weight: bold;
+    border-radius: 5px;
 }
 
 .loading {
@@ -61,4 +64,25 @@
 
 .loaded {
     color: green
+}
+
+.search-box {
+    padding: 10px;
+    margin-right: 10px;
+    border: 3px solid black;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.search-btn {
+    background-color: #4089c7;;
+    border: 3px solid black;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
 }

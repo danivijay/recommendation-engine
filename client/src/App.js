@@ -9,7 +9,8 @@ const App = () => {
   const [page, setpage] = useState(0)
   const [recommendedLoading, setrecommendedLoading] = useState(false)
   const [itemsLoading, setitemsLoading] = useState(false)
-  const [search, setsearch] = useState('')
+  const [searchText, setsearchText] = useState('')
+  const [isSearch, setisSearch] = useState(false)
   useEffect(async () => {
     fetchItems(0)
     if (localStorage.getItem("favorites") === null) {
@@ -22,10 +23,10 @@ const App = () => {
     }
   }, [])
 
-  const fetchItems = async (page) => {
+  const fetchItems = async (page, search='', reset=false) => {
     setitemsLoading(true)
     try {
-      const response = await fetch(`http://localhost:5000/items?pageNum=${page}`, {
+      const response = await fetch(`http://localhost:5000/items?pageNum=${page}${search && ('&search=' + search)}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -33,7 +34,12 @@ const App = () => {
         })
       const data = await response.json()
       if (data.success && data.success === true) {
-        setitems([...items, ...data.movies])
+        if (search || reset) {
+          setitems(data.movies)
+        } else {
+          console.log('items', items)
+          setitems([...items, ...data.movies])
+        }
       }
     } catch (e) {
       console.log(e)
@@ -80,8 +86,16 @@ const App = () => {
   const handleRemoveFavorite = (favorite) => {
     const newFavorites = favorites.filter(f => f !== favorite)
     setfavorites(newFavorites)
+    localStorage.setItem("favorites", newFavorites)
     fetchRecommended(newFavorites)
   }
+
+  const handleSearch = () => {
+    setitems([])
+    fetchItems(0, searchText, true)
+  }
+
+  console.log(items)
   return (
     <div >
       <header className="header">
@@ -106,17 +120,22 @@ const App = () => {
                 ))}
             </Fragment>
           ) : (
-            <h2>Favorite something to generate recommendations</h2>
+            <h2 style={{color: "red"}}>Favorite any movie to generate recommendations</h2>
           )}
         </div>
         <div>
-          <h2 className={recommendedLoading ? 'loading' : 'loaded'}>{itemsLoading && 'Loading '}Movies</h2>
+          <h2 className={itemsLoading ? 'loading' : 'loaded'}>{itemsLoading && 'Loading '}Movies List</h2>
+          <div style={{ marginBottom: '20px' }}>
+            <input type="text" className="search-box" onChange={(e) => setsearchText(e.target.value)}/>
+            <button className="search-btn" onClick={() => handleSearch()}>Search</button>
+          </div>
           {items.map(item => (
             <MovieCard item={item} onFavorite={handleFavorite} isFavorite={favorites.includes(item.title)}/>
           ))}
-          {items.length >= 10 && !search && !itemsLoading && (
+          {items.length >= 10 && !searchText && !itemsLoading && (
             <button className="load-more" onClick={handleLoadMore}>Load More</button>
           )}
+          {!itemsLoading && items.length <= 0 && (<p>No items found!</p>)}
         </div>
       </div>
     </div>
