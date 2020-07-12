@@ -1,0 +1,56 @@
+.header {
+    max-width: 600px;
+    margin: auto;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+}
+
+.movie-card {
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: solid 5px #969696;
+}
+
+.movie-title {
+    margin: 0;
+}
+
+.favorite {
+    background-color: #40c757;
+    border: 5px solid black;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.unfavorite {
+    background-color: #c74040;
+    border: 5px solid black;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.load-more {
+    background-color: #4089c7;;
+    border: 5px solid black;
+    color: white;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+}
