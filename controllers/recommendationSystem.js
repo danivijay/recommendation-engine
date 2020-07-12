@@ -8,7 +8,7 @@ exports.getItems = async (req, res, next) => {
         const page = req.query.pageNum || 0;
         if(req.query.search != ''){
             searchKey = req.query.search;
-            var searchKey = new RegExp(req.query.search, "g");
+            var searchKey = new RegExp(req.query.search, "gi");
             const movies = await Movie.find({title:searchKey}).skip(page * 10).limit(10).sort('title');
             res.status(200).json({
                 success: true,
