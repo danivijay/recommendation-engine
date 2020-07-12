@@ -22,7 +22,9 @@ exports.getItems = async (req, res, next) => {
 
 exports.postRecommendations = async (req, res, next) => {
     try {
-        var result = require('child_process').execSync(`python3 ${__dirname}/engine.py`).toString();
+        const {favorites} = req.body
+        console.log({favorites})
+        var result = require('child_process').execSync(`python3 ${__dirname}/engine.py "${favorites.join("|")}"`).toString();
         recommended_movies = result.split(",")
         console.log(recommended_movies)
         const movies = await Movie.find({ title: { $in: recommended_movies } });
