@@ -23,15 +23,21 @@ exports.getItems = async (req, res, next) => {
 exports.postRecommendations = async (req, res, next) => {
     try {
         const { favorites } = req.body
-        var result = require('child_process').execSync(`python3 ${__dirname}/engine.py "${favorites.join("|")}"`).toString();
-        console.log(result)
-        recommended_movies = result.replace("\n", "").split("|")
-        console.log(recommended_movies)
-        const movies = await Movie.find({ title: { $in: recommended_movies } });
-        res.status(200).json({
-            success: true,
-            movies: movies
-        });
+        if (favorites.length > 0) {
+            var result = require('child_process').execSync(`python3 ${__dirname}/engine.py "${favorites.join("|")}"`).toString();
+            console.log(result)
+            recommended_movies = result.replace("\n", "").split("|")
+            console.log(recommended_movies)
+            const movies = await Movie.find({ title: { $in: recommended_movies } });
+            res.status(200).json({
+                success: true,
+                movies: movies
+            });
+        } else {
+            res.status(200).json({
+                success: false,
+            });
+        }
     } catch (error) {
         console.log(`Error on generating recommendations ${error.message}`.red);
         res.status(500).json({
